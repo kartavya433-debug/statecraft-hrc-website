@@ -4,272 +4,443 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statecraft - The MUN Society of Hansraj College</title>
-    <!-- 1. Loads Tailwind CSS for styling -->
+    
+    <!-- 1. Loads Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 2. Loads icons for social media, etc. -->
+    
+    <!-- 2. Loads Google Fonts (Pro Typography) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- 3. Loads Icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <!-- 3. Configures custom fonts and colors for Tailwind -->
+
+    <!-- 4. Tailwind Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif'],
-                        'serif': ['Georgia', 'serif'], // A classic font for long-form text
+                        'serif': ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        'brand-blue': {
-                            'light': '#2a4a6e',
-                            'DEFAULT': '#1e3a5f', // A deep, professional blue
-                            'dark': '#142b47',
-                        },
-                        'brand-gold': {
-                            'light': '#f3e9c6',
-                            'DEFAULT': '#e0c57c', // A classic, diplomatic gold
-                            'dark': '#c8b06f',
+                        'brand': {
+                            'dark': '#0f172a',  // Slate 900
+                            'main': '#1e3a5f',  // Deep Blue
+                            'accent': '#fbbf24', // Amber 400
+                            'gold': '#c5a059',   // Metallic Gold
+                            'light': '#f8fafc', // Slate 50
                         }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://placehold.co/1920x1080/1e3a5f/0f172a?text=')",
                     }
                 }
             }
         }
     </script>
+
+    <!-- 5. Custom Styles for Animations -->
     <style>
-        /* Simple scroll-behavior */
         html {
             scroll-behavior: smooth;
         }
-        /* Custom class for the card hover effect */
-        .card-hover:hover {
-            box-shadow: 0 10px 15px -3px rgba(30, 58, 95, 0.5), 0 4px 6px -2px rgba(30, 58, 95, 0.05); /* Custom blue shadow */
-            border-color: #e0c57c; /* Brand gold color border */
+        
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Lift Effect */
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Parallax Background */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800">
+<body class="font-sans bg-gray-50 text-gray-800 antialiased selection:bg-brand-gold selection:text-white">
 
-    <!-- =========== HEADER / NAVIGATION =========== -->
-    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
+    <!-- =========== HEADER =========== -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100" id="navbar">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Brand Logo -->
-            <a href="#" class="text-2xl font-bold text-brand-blue-dark">
-                Statecraft
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-brand-main rounded-sm flex items-center justify-center text-brand-gold">
+                    <ion-icon name="globe-outline"></ion-icon>
+                </div>
+                <span class="text-2xl font-serif font-bold text-brand-main tracking-tight group-hover:text-brand-gold transition-colors">Statecraft</span>
             </a>
-            <!-- Navigation Links (Desktop) -->
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-600 hover:text-brand-blue transition duration-300">Home</a>
-                <a href="#about" class="text-gray-600 hover:text-brand-blue transition duration-300">About</a>
-                <a href="#events" class="text-gray-600 hover:text-brand-blue transition duration-300">Events</a>
-                <a href="#team" class="text-gray-600 hover:text-brand-blue transition duration-300">Team</a>
-                <a href="#contact" class="text-gray-600 hover:text-brand-blue transition duration-300">Contact</a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-sm font-medium text-gray-600 hover:text-brand-main transition">Home</a>
+                <a href="#about" class="text-sm font-medium text-gray-600 hover:text-brand-main transition">About</a>
+                <a href="#events" class="text-sm font-medium text-gray-600 hover:text-brand-main transition">Events</a>
+                <a href="#team" class="text-sm font-medium text-gray-600 hover:text-brand-main transition">Team</a>
+                <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-brand-main transition">Contact</a>
+                <a href="#join" class="bg-brand-main text-white text-sm font-medium py-2.5 px-6 rounded-full hover:bg-brand-dark transition shadow-lg shadow-brand-main/30">
+                    Join Us
+                </a>
             </div>
-            <!-- Register Button -->
-            <a href="#join" class="hidden md:block bg-brand-blue hover:bg-brand-blue-dark text-white font-medium py-2 px-5 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                Join Us
-            </a>
-            <!-- Mobile Menu Button (you can add JS for this later) -->
-            <button class="md:hidden text-3xl text-brand-blue-dark" id="mobile-menu-button">
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-brand-main" id="mobile-menu-btn">
                 <ion-icon name="menu-outline"></ion-icon>
             </button>
         </nav>
-        <!-- Mobile Menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
-            <a href="#home" class="block text-gray-600 hover:text-brand-blue transition duration-300">Home</a>
-            <a href="#about" class="block text-gray-600 hover:text-brand-blue transition duration-300">About</a>
-            <a href="#events" class="block text-gray-600 hover:text-brand-blue transition duration-300">Events</a>
-            <a href="#team" class="block text-gray-600 hover:text-brand-blue transition duration-300">Team</a>
-            <a href="#contact" class="block text-gray-600 hover:text-brand-blue transition duration-300">Contact</a>
-            <a href="#join" class="block bg-brand-blue text-white text-center font-medium py-2 px-5 rounded-lg shadow-lg transition duration-300">
-                Join Us
-            </a>
+
+        <!-- Mobile Menu (Hidden) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl md:hidden">
+            <div class="flex flex-col p-6 space-y-4">
+                <a href="#home" class="text-gray-600 font-medium">Home</a>
+                <a href="#about" class="text-gray-600 font-medium">About</a>
+                <a href="#events" class="text-gray-600 font-medium">Events</a>
+                <a href="#team" class="text-gray-600 font-medium">Team</a>
+                <a href="#contact" class="text-gray-600 font-medium">Contact</a>
+                <a href="#join" class="text-brand-main font-bold">Join Us</a>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- =========== HERO SECTION =========== -->
-        <section id="home" class="h-[90vh] min-h-[600px] bg-brand-blue text-white relative flex items-center justify-center text-center overflow-hidden p-6">
-            <!-- Background overlay -->
-            <div class="absolute inset-0 bg-black/50 z-10"></div>
+        <!-- =========== HERO SECTION (Parallax) =========== -->
+        <section id="home" class="relative h-screen min-h-[600px] flex items-center justify-center parallax" 
+                 style="background-image: url('https://placehold.co/1920x1080/1e3a5f/0f172a?text=Hansraj+College+Campus');">
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-main/80 to-brand-dark/90"></div>
             
-            <!-- Background Image -->
-            <!-- Placeholder for Hansraj College or a diplomatic image -->
-            <img src="https://placehold.co/1920x1080/1e3a5f/ffffff?text=Hansraj+College" 
-                 alt="Hansraj College" 
-                 class="absolute inset-0 w-full h-full object-cover z-0 opacity-50">
-            
-            <!-- Hero Content -->
-            <div class="relative z-20 flex flex-col items-center">
-                <h2 class="text-lg md:text-2xl font-light text-brand-gold-light tracking-widest uppercase">
-                    The Model United Nations Society
-                </h2>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold my-4 text-white shadow-lg">
-                    Statecraft
+            <div class="relative z-10 text-center px-6 max-w-4xl mx-auto reveal active">
+                <div class="inline-block mb-4 px-3 py-1 border border-brand-gold/30 rounded-full bg-brand-dark/50 backdrop-blur-sm">
+                    <span class="text-brand-gold text-xs font-bold tracking-[0.2em] uppercase">Est. 20XX • Hansraj College</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 leading-tight">
+                    Diplomacy Begins <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-200">Here.</span>
                 </h1>
-                <p class="text-xl md:text-3xl font-light text-gray-200">
-                    Hansraj College, University of Delhi
+                <p class="text-lg md:text-xl text-gray-300 font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Fostering the next generation of global leaders through debate, negotiation, and critical thinking. Welcome to Statecraft.
                 </p>
-                <a href="#about" class="mt-10 bg-brand-gold-light text-brand-blue-dark font-bold py-3 px-8 rounded-lg text-lg shadow-xl hover:bg-white hover:shadow-2xl transition duration-300 transform hover:scale-105">
-                    Learn More
-                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#about" class="bg-brand-gold text-brand-dark font-bold py-3 px-8 rounded-full hover:bg-white transition duration-300 shadow-lg shadow-brand-gold/20">
+                        Discover More
+                    </a>
+                    <a href="#events" class="border border-white/30 text-white font-medium py-3 px-8 rounded-full hover:bg-white/10 backdrop-blur-sm transition duration-300">
+                        View Events
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Scroll Down Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50 text-2xl">
+                <ion-icon name="arrow-down-outline"></ion-icon>
             </div>
         </section>
 
         <!-- =========== ABOUT SECTION =========== -->
-        <section id="about" class="py-20 md:py-32 bg-white">
-            <div class="container mx-auto px-6 max-w-4xl text-center">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-blue-dark mb-6">About Statecraft</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    Welcome to Statecraft, the premier Model United Nations society of Hansraj College. We are dedicated to fostering diplomacy, critical thinking, and a comprehensive understanding of international relations among students.
-                </p>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Our society provides a platform for aspiring diplomats to debate pressing global issues, draft resolutions, and develop their public speaking and negotiation skills. We host our own flagship conference and participate in MUNs across the country, upholding a legacy of excellence.
-                </p>
+        <section id="about" class="py-24 bg-white relative overflow-hidden">
+            <!-- Background element -->
+            <div class="absolute top-0 right-0 w-1/3 h-full bg-gray-50 -skew-x-12 translate-x-20 z-0"></div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-16">
+                    <!-- Text Content -->
+                    <div class="md:w-1/2 reveal">
+                        <h4 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-2">Who We Are</h4>
+                        <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-main mb-6">A Legacy of <br>Excellence</h2>
+                        <div class="w-20 h-1 bg-brand-gold mb-8"></div>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                            Statecraft is more than just a society; it is a training ground for future leaders. Situated in the heart of North Campus, we pride ourselves on a culture of rigorous debate and inclusive diplomacy.
+                        </p>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                            From hosting one of Delhi's largest MUN conferences to conducting weekly training sessions, we ensure every member finds their voice on the global stage.
+                        </p>
+                        <div class="flex gap-8">
+                            <div>
+                                <h3 class="text-3xl font-bold text-brand-main">500+</h3>
+                                <p class="text-sm text-gray-500">Delegates</p>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-bold text-brand-main">50+</h3>
+                                <p class="text-sm text-gray-500">Awards Won</p>
+                            </div>
+                            <div>
+                                <h3 class="text-3xl font-bold text-brand-main">10+</h3>
+                                <p class="text-sm text-gray-500">Years Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Image Grid -->
+                    <div class="md:w-1/2 grid grid-cols-2 gap-4 reveal delay-200">
+                        <img src="https://placehold.co/400x500/1e3a5f/ffffff?text=Debate" class="rounded-lg shadow-xl mt-8 w-full h-64 object-cover transform hover:scale-105 transition duration-500" alt="Debate">
+                        <img src="https://placehold.co/400x500/c5a059/1e3a5f?text=Team" class="rounded-lg shadow-xl w-full h-64 object-cover transform hover:scale-105 transition duration-500" alt="Team">
+                    </div>
+                </div>
             </div>
         </section>
 
-
-        <!-- =========== EVENTS (was Committees) =========== -->
-        <section id="events" class="py-20 md:py-32 bg-gray-50">
+        <!-- =========== EVENTS SECTION =========== -->
+        <section id="events" class="py-24 bg-gray-50">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-blue-dark mb-12 text-center">Our Events</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                    <!-- Event Card 1 -->
-                    <div class="bg-white rounded-lg shadow-xl border border-transparent card-hover overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/1e3a5f/e0c57c?text=Flagship+MUN" alt="Flagship MUN" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold text-brand-blue-dark mb-3">Statecraft MUN 2025</h3>
-                            <p class="text-gray-700 mb-4">Our annual flagship conference, bringing together delegates from across the nation for a weekend of intense debate and diplomacy.</p>
-                            <a href="#" class="font-medium text-brand-blue hover:text-brand-blue-dark transition duration-300">Learn More &rarr;</a>
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h4 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-2">What We Do</h4>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-main">Upcoming Events</h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Event 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift reveal border border-gray-100 group">
+                        <div class="relative h-56 overflow-hidden">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-brand-main z-10">
+                                APR 2025
+                            </div>
+                            <img src="https://placehold.co/600x400/1e3a5f/c5a059?text=Statecraft+MUN" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="MUN">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-serif font-bold text-brand-main mb-3">Statecraft MUN '25</h3>
+                            <p class="text-gray-600 mb-6 line-clamp-3">
+                                Our flagship conference returns bigger than ever. 5 Committees, 3 Days, and an unforgettable delegate experience.
+                            </p>
+                            <a href="#" class="inline-flex items-center text-brand-gold font-bold uppercase text-xs tracking-wider hover:text-brand-main transition">
+                                Register Now <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Event Card 2 -->
-                    <div class="bg-white rounded-lg shadow-xl border border-transparent card-hover overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/2a4a6e/ffffff?text=Workshop" alt="Workshop" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold text-brand-blue-dark mb-3">Diplomacy Workshop</h3>
-                            <p class="text-gray-700 mb-4">An introductory workshop for beginners covering Rules of Procedure, research techniques, and position paper writing.</p>
-                            <a href="#" class="font-medium text-brand-blue hover:text-brand-blue-dark transition duration-300">View Schedule &rarr;</a>
+                    <!-- Event 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift reveal delay-100 border border-gray-100 group">
+                        <div class="relative h-56 overflow-hidden">
+                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-brand-main z-10">
+                                FEB 2025
+                            </div>
+                            <img src="https://placehold.co/600x400/0f172a/ffffff?text=Workshop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Workshop">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-serif font-bold text-brand-main mb-3">Training Workshop</h3>
+                            <p class="text-gray-600 mb-6 line-clamp-3">
+                                Master the Rules of Procedure. A comprehensive workshop designed for first-timers to understand the flow of committee.
+                            </p>
+                            <a href="#" class="inline-flex items-center text-brand-gold font-bold uppercase text-xs tracking-wider hover:text-brand-main transition">
+                                View Details <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
+                            </a>
                         </div>
                     </div>
 
-                    <!-- Event Card 3 -->
-                    <div class="bg-white rounded-lg shadow-xl border border-transparent card-hover overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/142b47/f3e9c6?text=Speaker+Session" alt="Speaker Session" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-2xl font-bold text-brand-blue-dark mb-3">Ambassador's Talk</h3>
-                            <p class="text-gray-700 mb-4">Gain insights from seasoned diplomats and experts in international relations in our exclusive speaker sessions.</p>
-                            <a href="#" class="font-medium text-brand-blue hover:text-brand-blue-dark transition duration-300">Past Speakers &rarr;</a>
+                    <!-- Event 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift reveal delay-200 border border-gray-100 group">
+                        <div class="relative h-56 overflow-hidden">
+                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-brand-main z-10">
+                                MONTHLY
+                            </div>
+                            <img src="https://placehold.co/600x400/c5a059/1e3a5f?text=Speaker+Series" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Speaker">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-serif font-bold text-brand-main mb-3">Ambassador Series</h3>
+                            <p class="text-gray-600 mb-6 line-clamp-3">
+                                Exclusive interactive sessions with former diplomats and international relations experts.
+                            </p>
+                            <a href="#" class="inline-flex items-center text-brand-gold font-bold uppercase text-xs tracking-wider hover:text-brand-main transition">
+                                See Schedule <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========== TEAM (was Secretariat) =========== -->
-        <section id="team" class="py-20 md:py-32 bg-white">
+        <!-- =========== TEAM SECTION =========== -->
+        <section id="team" class="py-24 bg-white">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-blue-dark mb-12 text-center">Meet the Team</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-12">
-                    
-                    <!-- Team Member Card (Repeat this block) -->
-                    <div class="text-center">
-                        <img src="https://placehold.co/300x300/f0f0f0/333?text=Photo" alt="Team Member" class="w-40 h-40 mx-auto rounded-full shadow-lg object-cover">
-                        <h4 class="text-xl font-bold text-brand-blue-dark mt-4">Full Name</h4>
-                        <p class="text-brand-gold-dark font-medium">President</p>
-                    </div>
-                    
-                    <!-- Team Member Card -->
-                    <div class="text-center">
-                        <img src="https://placehold.co/300x300/f0f0f0/333?text=Photo" alt="Team Member" class="w-40 h-40 mx-auto rounded-full shadow-lg object-cover">
-                        <h4 class="text-xl font-bold text-brand-blue-dark mt-4">Full Name</h4>
-                        <p class="text-brand-gold-dark font-medium">Vice President</p>
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h4 class="text-brand-gold font-bold uppercase tracking-widest text-sm mb-2">Leadership</h4>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-main">The Secretariat</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <!-- Member 1 -->
+                    <div class="group text-center reveal">
+                        <div class="relative w-48 h-48 mx-auto mb-6 rounded-full p-1 border-2 border-dashed border-brand-gold/50 group-hover:border-solid group-hover:border-brand-main transition-all duration-500">
+                            <img src="https://placehold.co/300x300/1e3a5f/ffffff?text=President" class="w-full h-full rounded-full object-cover" alt="Member">
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-main">Full Name</h4>
+                        <p class="text-brand-gold font-medium text-sm uppercase tracking-wider mb-3">President</p>
+                        <div class="flex justify-center space-x-3 text-gray-400">
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="mail"></ion-icon></a>
+                        </div>
                     </div>
 
-                    <!-- Team Member Card -->
-                    <div class="text-center">
-                        <img src="https://placehold.co/300x300/f0f0f0/333?text=Photo" alt="Team Member" class="w-40 h-40 mx-auto rounded-full shadow-lg object-cover">
-                        <h4 class="text-xl font-bold text-brand-blue-dark mt-4">Full Name</h4>
-                        <p class="text-brand-gold-dark font-medium">Director General</p>
+                    <!-- Member 2 -->
+                    <div class="group text-center reveal delay-100">
+                        <div class="relative w-48 h-48 mx-auto mb-6 rounded-full p-1 border-2 border-dashed border-brand-gold/50 group-hover:border-solid group-hover:border-brand-main transition-all duration-500">
+                            <img src="https://placehold.co/300x300/0f172a/ffffff?text=VP" class="w-full h-full rounded-full object-cover" alt="Member">
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-main">Full Name</h4>
+                        <p class="text-brand-gold font-medium text-sm uppercase tracking-wider mb-3">Vice President</p>
+                         <div class="flex justify-center space-x-3 text-gray-400">
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="mail"></ion-icon></a>
+                        </div>
                     </div>
 
-                    <!-- Team Member Card -->
-                    <div class="text-center">
-                        <img src="https://placehold.co/300x300/f0f0f0/333?text=Photo" alt="Team Member" class="w-40 h-40 mx-auto rounded-full shadow-lg object-cover">
-                        <h4 class="text-xl font-bold text-brand-blue-dark mt-4">Full Name</h4>
-                        <p class="text-brand-gold-dark font-medium">Head of PR</p>
+                    <!-- Member 3 -->
+                    <div class="group text-center reveal delay-200">
+                        <div class="relative w-48 h-48 mx-auto mb-6 rounded-full p-1 border-2 border-dashed border-brand-gold/50 group-hover:border-solid group-hover:border-brand-main transition-all duration-500">
+                            <img src="https://placehold.co/300x300/c5a059/1e3a5f?text=Gen+Sec" class="w-full h-full rounded-full object-cover" alt="Member">
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-main">Full Name</h4>
+                        <p class="text-brand-gold font-medium text-sm uppercase tracking-wider mb-3">General Secretary</p>
+                         <div class="flex justify-center space-x-3 text-gray-400">
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="mail"></ion-icon></a>
+                        </div>
                     </div>
-                    
-                    <!-- Add more team members as needed -->
 
+                    <!-- Member 4 -->
+                    <div class="group text-center reveal delay-300">
+                        <div class="relative w-48 h-48 mx-auto mb-6 rounded-full p-1 border-2 border-dashed border-brand-gold/50 group-hover:border-solid group-hover:border-brand-main transition-all duration-500">
+                            <img src="https://placehold.co/300x300/1e3a5f/ffffff?text=PR+Head" class="w-full h-full rounded-full object-cover" alt="Member">
+                        </div>
+                        <h4 class="text-xl font-bold text-brand-main">Full Name</h4>
+                        <p class="text-brand-gold font-medium text-sm uppercase tracking-wider mb-3">Head of PR</p>
+                         <div class="flex justify-center space-x-3 text-gray-400">
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#" class="hover:text-brand-main transition"><ion-icon name="mail"></ion-icon></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========== JOIN US (was Register) =========== -->
-        <section id="join" class="py-20 md:py-32 bg-brand-blue-dark text-white text-center">
-            <div class="container mx-auto px-6 max-w-3xl">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Become a Part of Statecraft</h2>
-                <p class="text-xl text-brand-gold-light leading-relaxed mb-10">
-                    We are always looking for passionate and dedicated students to join our society. Whether you're a seasoned delegate or a complete beginner, there's a place for you here.
+        <!-- =========== JOIN CTA =========== -->
+        <section id="join" class="py-24 bg-brand-main relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl"></div>
+
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Ready to Make an Impact?</h2>
+                <p class="text-xl text-brand-light/80 mb-10 max-w-2xl mx-auto font-light">
+                    Join a community of passionate individuals. Whether you are a seasoned debater or just starting out, Statecraft is your platform.
                 </p>
-                <a href="#" class="bg-white text-brand-blue-dark font-bold py-4 px-10 rounded-lg text-lg shadow-xl hover:bg-brand-gold-light hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                <a href="#" class="inline-block bg-brand-gold text-brand-dark font-bold py-4 px-10 rounded-full text-lg shadow-2xl hover:bg-white hover:scale-105 transition duration-300 transform">
                     Apply for Membership
                 </a>
             </div>
         </section>
 
-        <!-- =========== CONTACT =========== -->
-        <section id="contact" class="py-20 md:py-32 bg-gray-50">
-            <div class="container mx-auto px-6 max-w-4xl text-center">
-                <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-blue-dark mb-10">Get In Touch</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-10">
-                    Have questions about our events, membership, or sponsorships? Reach out to us!
-                </p>
-                <div class="flex justify-center space-x-8 text-5xl text-brand-blue-light">
-                    <a href="mailto:statecraft.hrc@example.com" class="hover:text-brand-blue-dark transition duration-300" title="Email Us">
-                        <ion-icon name="mail-outline"></ion-icon>
-                    </a>
-                    <a href="#" class="hover:text-brand-blue-dark transition duration-300" title="Follow us on Instagram">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                    </a>
-                    <a href="#" class="hover:text-brand-blue-dark transition duration-300" title="Connect on LinkedIn">
-                        <ion-icon name="logo-linkedin"></ion-icon>
-                    </a>
-                    <a href="#" class="hover:text-brand-blue-dark transition duration-300" title="Follow us on Facebook">
-                        <ion-icon name="logo-facebook"></ion-icon>
-                    </a>
+        <!-- =========== FOOTER =========== -->
+        <footer id="contact" class="bg-brand-dark text-white pt-20 pb-10 border-t border-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-12 mb-16">
+                    <!-- Brand Info -->
+                    <div>
+                        <a href="#" class="flex items-center gap-2 mb-6">
+                            <div class="w-8 h-8 bg-brand-gold rounded-sm flex items-center justify-center text-brand-dark">
+                                <ion-icon name="globe-outline"></ion-icon>
+                            </div>
+                            <span class="text-2xl font-serif font-bold text-white">Statecraft</span>
+                        </a>
+                        <p class="text-gray-400 leading-relaxed">
+                            The official Model United Nations Society of Hansraj College. Creating global citizens since 20XX.
+                        </p>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-6">Quick Links</h4>
+                        <ul class="space-y-3 text-gray-400">
+                            <li><a href="#about" class="hover:text-brand-gold transition">About Us</a></li>
+                            <li><a href="#events" class="hover:text-brand-gold transition">Our Events</a></li>
+                            <li><a href="#team" class="hover:text-brand-gold transition">The Team</a></li>
+                            <li><a href="#join" class="hover:text-brand-gold transition">Recruitment</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-6">Contact Us</h4>
+                        <ul class="space-y-4 text-gray-400">
+                            <li class="flex items-start gap-3">
+                                <ion-icon name="location-outline" class="text-xl text-brand-gold mt-1"></ion-icon>
+                                <span>Hansraj College, University of Delhi,<br>Malka Ganj, Delhi - 110007</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <ion-icon name="mail-outline" class="text-xl text-brand-gold"></ion-icon>
+                                <a href="mailto:statecraft.hrc@example.com" class="hover:text-white transition">statecraft.hrc@example.com</a>
+                            </li>
+                        </ul>
+                        <div class="flex gap-4 mt-6">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition"><ion-icon name="logo-instagram"></ion-icon></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition"><ion-icon name="logo-facebook"></ion-icon></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                    <p>&copy; 2025 Statecraft MUN Society. All rights reserved.</p>
                 </div>
             </div>
-        </section>
+        </footer>
 
     </main>
 
-    <!-- =========== FOOTER =========== -->
-    <footer class="bg-brand-blue-dark text-brand-gold-light py-10">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Statecraft - The MUN Society of Hansraj College. All rights reserved.</p>
-            <p class="text-sm text-brand-blue-light mt-2">Designed with passion.</p>
-        </div>
-    </footer>
-
-    <!-- Simple JS for Mobile Menu Toggle -->
+    <!-- JS for Mobile Menu & Animations -->
     <script>
-        const menuButton = document.getElementById('mobile-menu-button');
+        // 1. Mobile Menu Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-
-        menuButton.addEventListener('click', () => {
+        
+        menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Close menu when a link is clicked
+        // Close menu when link is clicked
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
         });
-    </script>
 
+        // 2. Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+    </script>
 </body>
 </html>
